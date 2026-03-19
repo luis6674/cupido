@@ -1,6 +1,9 @@
 $(function () {
 
   let zTop = 1001;
+  const MOBILE_BP = 768;
+
+  function isMobile() { return window.innerWidth < MOBILE_BP; }
 
   // ── Make all windows draggable + resizable ──
   $('.mac-window').each(function () {
@@ -14,6 +17,16 @@ $(function () {
       minHeight: 160
     });
   });
+
+  function applyMobileState() {
+    if (isMobile()) {
+      $('.mac-window').draggable('disable').resizable('disable');
+    } else {
+      $('.mac-window').draggable('enable').resizable('enable');
+    }
+  }
+  applyMobileState();
+  $(window).on('resize', applyMobileState);
 
   function bringToFront($win) {
     zTop++;
@@ -67,6 +80,67 @@ $(function () {
   }
   updateClock();
   setInterval(updateClock, 10000);
+
+  // ── Lightbox ──
+  const $lightbox = $('#lightbox');
+  const $lbImg    = $('#lightbox-img');
+  const $lbCap    = $('#lightbox-caption');
+  let lbItems = [];
+  let lbIndex = 0;
+
+  function lbShow(idx) {
+    lbIndex = (idx + lbItems.length) % lbItems.length;
+    const item = lbItems[lbIndex];
+    $lbImg.attr('src', item.src).attr('alt', item.caption);
+    $lbCap.text(item.caption);
+  }
+
+  $(document).on('click', '.picture-thumb', function () {
+    lbItems = [];
+    $('.picture-thumb').each(function () {
+      lbItems.push({ src: $(this).data('src'), caption: $(this).data('caption') });
+    });
+    const clicked = $(this).data('src');
+    lbIndex = lbItems.findIndex(i => i.src === clicked);
+    lbShow(lbIndex);
+    $lightbox.addClass('open');
+  });
+
+  $('#lightbox-close, #lightbox').on('click', function (e) {
+    if (e.target === this) $lightbox.removeClass('open');
+  });
+  $('#lightbox-prev').on('click', function (e) { e.stopPropagation(); lbShow(lbIndex - 1); });
+  $('#lightbox-next').on('click', function (e) { e.stopPropagation(); lbShow(lbIndex + 1); });
+  $(document).on('keydown', function (e) {
+    if (!$lightbox.hasClass('open')) return;
+    if (e.key === 'ArrowLeft')  lbShow(lbIndex - 1);
+    if (e.key === 'ArrowRight') lbShow(lbIndex + 1);
+    if (e.key === 'Escape')     $lightbox.removeClass('open');
+  });
+
+  // ── YouTube Viewer ──
+  const $ytViewer = $('#yt-viewer');
+  const $ytEmbed  = $('#yt-embed');
+  const $ytCap    = $('#yt-caption');
+
+  function ytClose() {
+    $ytEmbed.empty();
+    $ytViewer.removeClass('open');
+  }
+
+  $(document).on('click', '.video-thumb', function () {
+    const vid = $(this).data('vid');
+    const cap = $(this).data('caption');
+    $ytEmbed.html('<iframe src="https://www.youtube.com/embed/' + vid + '?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>');
+    $ytCap.text(cap);
+    $ytViewer.addClass('open');
+  });
+
+  $('#yt-close').on('click', function () { ytClose(); });
+  $('#yt-viewer').on('click', function (e) { if (e.target === this) ytClose(); });
+  $(document).on('keydown', function (e) {
+    if ($ytViewer.hasClass('open') && e.key === 'Escape') ytClose();
+  });
 
   // ── Play button toggle ──
   let playing = false;
