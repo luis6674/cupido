@@ -126,7 +126,7 @@
 </div>
 
 <!-- PICTURES -->
-<div class="mac-window" id="win-pictures" style="width:500px;height:340px;top:100px;left:160px;">
+<div class="mac-window" id="win-pictures" style="width:520px;height:380px;top:100px;left:160px;">
   <div class="window-titlebar">
     <div class="traffic-lights">
       <div class="tl tl-close" data-close="win-pictures">✕</div>
@@ -137,16 +137,46 @@
     <div class="tl-spacer"></div>
   </div>
   <div class="window-body">
-    <div class="file-list">
-      <div class="file-item"><span class="file-icon">🖼️</span> sunset_beach.jpg <span class="file-meta">4.2 MB</span></div>
-      <div class="file-item"><span class="file-icon">🖼️</span> mountain_trail.png <span class="file-meta">6.8 MB</span></div>
-      <div class="file-item"><span class="file-icon">🖼️</span> portrait_spring.jpg <span class="file-meta">3.1 MB</span></div>
-      <div class="file-item"><span class="file-icon">🖼️</span> street_photography.jpg <span class="file-meta">5.5 MB</span></div>
-      <div class="file-item"><span class="file-icon">🖼️</span> forest_fog.png <span class="file-meta">8.0 MB</span></div>
-      <div class="file-item"><span class="file-icon">🖼️</span> city_night.jpg <span class="file-meta">4.7 MB</span></div>
-      <div class="file-item"><span class="file-icon">🖼️</span> wildflowers.jpg <span class="file-meta">3.9 MB</span></div>
+    <div class="picture-grid">
+      <div class="picture-thumb" data-src="images/pictures/sunset_beach.jpg" data-caption="sunset_beach.jpg">
+        <img src="images/pictures/sunset_beach.jpg" alt="Sunset Beach" loading="lazy">
+        <div class="pic-label">sunset_beach.jpg</div>
+      </div>
+      <div class="picture-thumb" data-src="images/pictures/mountain_trail.jpg" data-caption="mountain_trail.jpg">
+        <img src="images/pictures/mountain_trail.jpg" alt="Mountain Trail" loading="lazy">
+        <div class="pic-label">mountain_trail.jpg</div>
+      </div>
+      <div class="picture-thumb" data-src="images/pictures/portrait_spring.jpg" data-caption="portrait_spring.jpg">
+        <img src="images/pictures/portrait_spring.jpg" alt="Portrait Spring" loading="lazy">
+        <div class="pic-label">portrait_spring.jpg</div>
+      </div>
+      <div class="picture-thumb" data-src="images/pictures/street_photography.jpg" data-caption="street_photography.jpg">
+        <img src="images/pictures/street_photography.jpg" alt="Street Photography" loading="lazy">
+        <div class="pic-label">street_photography.jpg</div>
+      </div>
+      <div class="picture-thumb" data-src="images/pictures/forest_fog.jpg" data-caption="forest_fog.jpg">
+        <img src="images/pictures/forest_fog.jpg" alt="Forest Fog" loading="lazy">
+        <div class="pic-label">forest_fog.jpg</div>
+      </div>
+      <div class="picture-thumb" data-src="images/pictures/city_night.jpg" data-caption="city_night.jpg">
+        <img src="images/pictures/city_night.jpg" alt="City Night" loading="lazy">
+        <div class="pic-label">city_night.jpg</div>
+      </div>
+      <div class="picture-thumb" data-src="images/pictures/wildflowers.jpg" data-caption="wildflowers.jpg">
+        <img src="images/pictures/wildflowers.jpg" alt="Wildflowers" loading="lazy">
+        <div class="pic-label">wildflowers.jpg</div>
+      </div>
     </div>
   </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <button id="lightbox-close">✕</button>
+  <button id="lightbox-prev">‹</button>
+  <img id="lightbox-img" src="" alt="">
+  <div id="lightbox-caption"></div>
+  <button id="lightbox-next">›</button>
 </div>
 
 <!-- MUSIC -->

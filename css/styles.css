@@ -239,6 +239,103 @@ html, body {
 .file-item .file-icon { font-size: 18px; }
 .file-meta { margin-left: auto; font-size: 11px; color: var(--text-secondary); }
 
+/* ── PICTURE GRID ── */
+.picture-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+  padding: 4px;
+}
+.picture-thumb {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  aspect-ratio: 4/3;
+  background: rgba(0,0,0,0.06);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.picture-thumb:hover {
+  transform: scale(1.04);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+.picture-thumb img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.picture-thumb .pic-label {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(transparent, rgba(0,0,0,0.55));
+  color: #fff;
+  font-size: 10px;
+  padding: 12px 6px 4px;
+  opacity: 0;
+  transition: opacity 0.15s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.picture-thumb:hover .pic-label { opacity: 1; }
+
+/* ── LIGHTBOX ── */
+#lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(0,0,0,0.88);
+  backdrop-filter: blur(12px);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 14px;
+}
+#lightbox.open { display: flex; }
+#lightbox img {
+  max-width: 88vw;
+  max-height: 80vh;
+  border-radius: 10px;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+  object-fit: contain;
+}
+#lightbox-caption {
+  color: rgba(255,255,255,0.75);
+  font-size: 13px;
+  letter-spacing: 0.03em;
+}
+#lightbox-close {
+  position: absolute;
+  top: 20px; right: 24px;
+  background: rgba(255,255,255,0.12);
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.15s;
+}
+#lightbox-close:hover { background: rgba(255,255,255,0.25); }
+#lightbox-prev, #lightbox-next {
+  position: absolute;
+  top: 50%; transform: translateY(-50%);
+  background: rgba(255,255,255,0.12);
+  border: none;
+  color: #fff;
+  font-size: 22px;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.15s;
+}
+#lightbox-prev { left: 20px; }
+#lightbox-next { right: 20px; }
+#lightbox-prev:hover, #lightbox-next:hover { background: rgba(255,255,255,0.25); }
+
 /* ── NOTEPAD WINDOW ── */
 .notepad-area {
   width: 100%; height: 100%;
