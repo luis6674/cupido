@@ -78,7 +78,12 @@ $(function () {
 
   // ── Close button ──
   $(document).on('click', '.tl-close', function () {
-    $('#' + $(this).data('close')).fadeOut(160);
+    const id = $(this).data('close');
+    if (id === 'win-audioplayer') {
+      audio.pause();
+      $('#play-btn').text('▶');
+    }
+    $('#' + id).fadeOut(160);
   });
 
   // ── Bring to front on click ──
