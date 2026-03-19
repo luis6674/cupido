@@ -33,8 +33,23 @@ $(function () {
     $win.css('z-index', zTop);
   }
 
-  // ── Open windows on icon / dock double-click ──
+  // ── Docs lock state ──
+  let docsUnlocked = false;
+  const DOCS_PASS = 'cupido';
+
+  function showDocsLock() {
+    $('#docs-password').val('');
+    $('#docs-error').text('');
+    $('#docs-lock').addClass('open');
+    setTimeout(function () { $('#docs-password').focus(); }, 120);
+  }
+
+  // ── Open windows ──
   function openWindow(id) {
+    if (id === 'documents' && !docsUnlocked) {
+      showDocsLock();
+      return;
+    }
     const $win = $('#win-' + id);
     if ($win.length === 0) return;
 
@@ -142,11 +157,112 @@ $(function () {
     if ($ytViewer.hasClass('open') && e.key === 'Escape') ytClose();
   });
 
-  // ── Play button toggle ──
-  let playing = false;
+  // ── Docs lock ──
+  $('#docs-submit').on('click', function () {
+    if ($('#docs-password').val() === DOCS_PASS) {
+      docsUnlocked = true;
+      $('#docs-lock').removeClass('open');
+      openWindow('documents');
+    } else {
+      $('#docs-error').text('Incorrect password. Try again.');
+      $('#docs-password').val('').focus();
+    }
+  });
+  $('#docs-cancel').on('click', function () {
+    $('#docs-lock').removeClass('open');
+  });
+  $('#docs-password').on('keydown', function (e) {
+    if (e.key === 'Enter')  $('#docs-submit').trigger('click');
+    if (e.key === 'Escape') $('#docs-cancel').trigger('click');
+  });
+  $('#docs-lock').on('click', function (e) {
+    if (e.target === this) $('#docs-lock').removeClass('open');
+  });
+
+  // ── Audio Player ──
+  const audio = new Audio();
+  const trackList = [];
+  let trackIndex = -1;
+
+  // Build track list from DOM
+  $('#music-list .music-file').each(function () {
+    trackList.push({
+      src:    $(this).data('src'),
+      title:  $(this).data('title'),
+      artist: $(this).data('artist'),
+      $el:    $(this)
+    });
+  });
+
+  function fmtTime(s) {
+    const m = Math.floor(s / 60);
+    return m + ':' + String(Math.floor(s % 60)).padStart(2, '0');
+  }
+
+  function loadTrack(idx) {
+    if (idx < 0 || idx >= trackList.length) return;
+    trackIndex = idx;
+    const t = trackList[idx];
+    audio.src = t.src;
+    $('#track-title').text(t.title);
+    $('#track-artist').text(t.artist);
+    $('#time-cur').text('0:00');
+    $('#time-dur').text('0:00');
+    $('#progress-fill').css('width', '0%');
+    $('.music-file').removeClass('active');
+    t.$el.addClass('active');
+  }
+
+  function playTrack(idx) {
+    loadTrack(idx);
+    audio.play().catch(function () {});
+    $('#play-btn').text('⏸');
+  }
+
+  $(document).on('click', '.music-file', function () {
+    const idx = trackList.findIndex(t => t.$el.is(this));
+    playTrack(idx);
+    openWindow('audioplayer');
+  });
+
   $('#play-btn').on('click', function () {
-    playing = !playing;
-    $(this).text(playing ? '⏸' : '▶');
+    if (trackIndex < 0) return;
+    if (audio.paused) {
+      audio.play().catch(function () {});
+      $(this).text('⏸');
+    } else {
+      audio.pause();
+      $(this).text('▶');
+    }
+  });
+
+  $('#prev-btn').on('click', function () {
+    if (trackList.length === 0) return;
+    playTrack((trackIndex - 1 + trackList.length) % trackList.length);
+  });
+
+  $('#next-btn').on('click', function () {
+    if (trackList.length === 0) return;
+    playTrack((trackIndex + 1) % trackList.length);
+  });
+
+  audio.addEventListener('timeupdate', function () {
+    if (!audio.duration) return;
+    $('#progress-fill').css('width', (audio.currentTime / audio.duration * 100) + '%');
+    $('#time-cur').text(fmtTime(audio.currentTime));
+    $('#time-dur').text(fmtTime(audio.duration));
+  });
+
+  audio.addEventListener('ended', function () {
+    $('#play-btn').text('▶');
+    // auto-advance to next track
+    if (trackIndex < trackList.length - 1) playTrack(trackIndex + 1);
+  });
+
+  $('#progress-bar').on('click', function (e) {
+    if (!audio.duration) return;
+    const r = this.getBoundingClientRect();
+    audio.currentTime = ((e.clientX - r.left) / r.width) * audio.duration;
   });
 
 });

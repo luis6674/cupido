@@ -193,6 +193,21 @@
   <button id="lightbox-next">›</button>
 </div>
 
+<!-- DOCS LOCK -->
+<div id="docs-lock">
+  <div id="docs-lock-box">
+    <div class="lock-icon">🔒</div>
+    <div class="lock-title">Documents</div>
+    <div class="lock-subtitle">This folder is password protected</div>
+    <input type="password" id="docs-password" placeholder="Enter password" autocomplete="off">
+    <div id="docs-error"></div>
+    <div class="lock-buttons">
+      <button id="docs-cancel">Cancel</button>
+      <button id="docs-submit">Unlock</button>
+    </div>
+  </div>
+</div>
+
 <!-- YOUTUBE VIEWER -->
 <div id="yt-viewer">
   <button id="yt-close">✕</button>
@@ -212,13 +227,12 @@
     <div class="tl-spacer"></div>
   </div>
   <div class="window-body">
-    <div class="file-list">
-      <div class="file-item"><span class="file-icon">🎵</span> evening_calm.mp3 <span class="file-meta">9.2 MB</span></div>
-      <div class="file-item"><span class="file-icon">🎵</span> acoustic_session.flac <span class="file-meta">34 MB</span></div>
-      <div class="file-item"><span class="file-icon">🎵</span> lo_fi_study.mp3 <span class="file-meta">7.8 MB</span></div>
-      <div class="file-item"><span class="file-icon">🎵</span> jazz_night.mp3 <span class="file-meta">11 MB</span></div>
-      <div class="file-item"><span class="file-icon">🎵</span> piano_sketches.wav <span class="file-meta">52 MB</span></div>
-      <div class="file-item"><span class="file-icon">🎵</span> road_playlist.m3u <span class="file-meta">2 KB</span></div>
+    <div class="file-list" id="music-list">
+      <div class="file-item music-file" data-src="audio/morning_light.wav" data-title="Morning Light" data-artist="Cupido"><span class="file-icon">🎵</span> morning_light.wav <span class="file-meta">310 KB</span></div>
+      <div class="file-item music-file" data-src="audio/evening_calm.wav" data-title="Evening Calm" data-artist="Cupido"><span class="file-icon">🎵</span> evening_calm.wav <span class="file-meta">516 KB</span></div>
+      <div class="file-item music-file" data-src="audio/lo_fi_groove.wav" data-title="Lo-Fi Groove" data-artist="Cupido"><span class="file-icon">🎵</span> lo_fi_groove.wav <span class="file-meta">314 KB</span></div>
+      <div class="file-item music-file" data-src="audio/soft_piano.wav" data-title="Soft Piano" data-artist="Cupido"><span class="file-icon">🎵</span> soft_piano.wav <span class="file-meta">689 KB</span></div>
+      <div class="file-item music-file" data-src="audio/acoustic_strum.wav" data-title="Acoustic Strum" data-artist="Cupido"><span class="file-icon">🎵</span> acoustic_strum.wav <span class="file-meta">435 KB</span></div>
     </div>
   </div>
 </div>
@@ -294,19 +308,19 @@
   </div>
   <div class="window-body">
     <div class="audio-player">
-      <div class="album-art">🎵</div>
+      <div class="album-art" id="album-art">🎵</div>
       <div class="track-info">
-        <div class="track-title">Evening Calm</div>
-        <div class="track-artist">Unknown Artist</div>
+        <div class="track-title" id="track-title">Select a track</div>
+        <div class="track-artist" id="track-artist">—</div>
       </div>
       <div style="width:100%">
-        <div class="progress-bar"><div class="progress-fill"></div></div>
-        <div class="time-row"><span>1:23</span><span>4:05</span></div>
+        <div class="progress-bar" id="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+        <div class="time-row"><span id="time-cur">0:00</span><span id="time-dur">0:00</span></div>
       </div>
       <div class="controls">
-        <button class="ctrl-btn" title="Previous">⏮</button>
+        <button class="ctrl-btn" id="prev-btn" title="Previous">⏮</button>
         <button class="ctrl-btn play" id="play-btn" title="Play/Pause">▶</button>
-        <button class="ctrl-btn" title="Next">⏭</button>
+        <button class="ctrl-btn" id="next-btn" title="Next">⏭</button>
       </div>
     </div>
   </div>
