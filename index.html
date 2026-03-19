@@ -103,7 +103,7 @@
 <!-- ══════════════════ WINDOWS ══════════════════ -->
 
 <!-- VIDEOS -->
-<div class="mac-window" id="win-videos" style="width:480px;height:320px;top:80px;left:120px;">
+<div class="mac-window" id="win-videos" style="width:520px;height:380px;top:80px;left:120px;">
   <div class="window-titlebar">
     <div class="traffic-lights">
       <div class="tl tl-close" data-close="win-videos">✕</div>
@@ -114,13 +114,27 @@
     <div class="tl-spacer"></div>
   </div>
   <div class="window-body">
-    <div class="file-list">
-      <div class="file-item"><span class="file-icon">🎞️</span> summer_vacation.mp4 <span class="file-meta">148 MB</span></div>
-      <div class="file-item"><span class="file-icon">🎞️</span> birthday_party_2024.mov <span class="file-meta">312 MB</span></div>
-      <div class="file-item"><span class="file-icon">🎞️</span> road_trip_highlights.mp4 <span class="file-meta">87 MB</span></div>
-      <div class="file-item"><span class="file-icon">🎞️</span> concert_night.mp4 <span class="file-meta">210 MB</span></div>
-      <div class="file-item"><span class="file-icon">🎞️</span> morning_hike.mp4 <span class="file-meta">55 MB</span></div>
-      <div class="file-item"><span class="file-icon">🎞️</span> family_reunion.mov <span class="file-meta">430 MB</span></div>
+    <div class="video-grid">
+      <div class="video-thumb" data-vid="FUJ5mPoFyxg" data-caption="Video 1">
+        <img src="https://img.youtube.com/vi/FUJ5mPoFyxg/hqdefault.jpg" alt="Video 1" loading="lazy">
+        <div class="vid-play">▶</div>
+        <div class="vid-label">Video 1</div>
+      </div>
+      <div class="video-thumb" data-vid="onX4biQE2CM" data-caption="Video 2">
+        <img src="https://img.youtube.com/vi/onX4biQE2CM/hqdefault.jpg" alt="Video 2" loading="lazy">
+        <div class="vid-play">▶</div>
+        <div class="vid-label">Video 2</div>
+      </div>
+      <div class="video-thumb" data-vid="qBBAFq8XKdk" data-caption="Video 3">
+        <img src="https://img.youtube.com/vi/qBBAFq8XKdk/hqdefault.jpg" alt="Video 3" loading="lazy">
+        <div class="vid-play">▶</div>
+        <div class="vid-label">Video 3</div>
+      </div>
+      <div class="video-thumb" data-vid="dQ_3kff0zfs" data-caption="Video 4">
+        <img src="https://img.youtube.com/vi/dQ_3kff0zfs/hqdefault.jpg" alt="Video 4" loading="lazy">
+        <div class="vid-play">▶</div>
+        <div class="vid-label">Video 4</div>
+      </div>
     </div>
   </div>
 </div>
@@ -177,6 +191,13 @@
   <img id="lightbox-img" src="" alt="">
   <div id="lightbox-caption"></div>
   <button id="lightbox-next">›</button>
+</div>
+
+<!-- YOUTUBE VIEWER -->
+<div id="yt-viewer">
+  <button id="yt-close">✕</button>
+  <div id="yt-container"><div id="yt-embed"></div></div>
+  <div id="yt-caption"></div>
 </div>
 
 <!-- MUSIC -->

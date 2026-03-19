@@ -105,6 +105,30 @@ $(function () {
     if (e.key === 'Escape')     $lightbox.removeClass('open');
   });
 
+  // ── YouTube Viewer ──
+  const $ytViewer = $('#yt-viewer');
+  const $ytEmbed  = $('#yt-embed');
+  const $ytCap    = $('#yt-caption');
+
+  function ytClose() {
+    $ytEmbed.empty();
+    $ytViewer.removeClass('open');
+  }
+
+  $(document).on('click', '.video-thumb', function () {
+    const vid = $(this).data('vid');
+    const cap = $(this).data('caption');
+    $ytEmbed.html('<iframe src="https://www.youtube.com/embed/' + vid + '?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>');
+    $ytCap.text(cap);
+    $ytViewer.addClass('open');
+  });
+
+  $('#yt-close').on('click', function () { ytClose(); });
+  $('#yt-viewer').on('click', function (e) { if (e.target === this) ytClose(); });
+  $(document).on('keydown', function (e) {
+    if ($ytViewer.hasClass('open') && e.key === 'Escape') ytClose();
+  });
+
   // ── Play button toggle ──
   let playing = false;
   $('#play-btn').on('click', function () {
