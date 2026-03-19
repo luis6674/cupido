@@ -1,6 +1,9 @@
 $(function () {
 
   let zTop = 1001;
+  const MOBILE_BP = 768;
+
+  function isMobile() { return window.innerWidth < MOBILE_BP; }
 
   // ── Make all windows draggable + resizable ──
   $('.mac-window').each(function () {
@@ -14,6 +17,16 @@ $(function () {
       minHeight: 160
     });
   });
+
+  function applyMobileState() {
+    if (isMobile()) {
+      $('.mac-window').draggable('disable').resizable('disable');
+    } else {
+      $('.mac-window').draggable('enable').resizable('enable');
+    }
+  }
+  applyMobileState();
+  $(window).on('resize', applyMobileState);
 
   function bringToFront($win) {
     zTop++;
